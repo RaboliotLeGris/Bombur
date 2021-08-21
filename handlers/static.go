@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+
+	log "github.com/sirupsen/logrus"
 )
 
 type StaticHandler struct {
@@ -13,6 +15,7 @@ type StaticHandler struct {
 
 // Stolen from mux README
 func (s StaticHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	log.Debug("GET ", r.URL.Path)
 	// get the absolute path to prevent directory traversal
 	path, err := filepath.Abs(r.URL.Path)
 	if err != nil {

@@ -9,5 +9,6 @@ FROM debian:10.8-slim@sha256:13f0764262a064b2dd9f8a828bbaab29bdb1a1a0ac6adc8610a
 
 WORKDIR /bombur
 COPY --from=builder /go/src/bombur/build/bombur /bombur
+COPY --from=builder /go/src/bombur/static /bombur/static
 
 CMD ["./bombur"]

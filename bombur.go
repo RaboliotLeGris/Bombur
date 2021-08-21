@@ -41,8 +41,6 @@ func main() {
 		log.Fatal("Failed to init DB with error : ", err)
 	}
 
-	// TODO(Rabo): create worker to expire links
-
 	log.Info("Creating DB pool")
 	pool, err := pgxpool.Connect(context.Background(), DB_URI)
 	if err != nil {
