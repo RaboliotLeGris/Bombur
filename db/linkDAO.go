@@ -62,6 +62,6 @@ func (l LinkDAO) createLinkWithExpiration(ctx context.Context, link, slug string
 
 func (l LinkDAO) GetLink(ctx context.Context, slug string) (string, error) {
 	var link string
-	err := l.conn.QueryRow(ctx, "SELECT link FROM link WHERE slug=$1 AND enabled=TRUE;", slug).Scan(&link)
+	err := l.conn.QueryRow(ctx, "SELECT link FROM link WHERE slug=$1 AND (expire > NOW() OR expire IS NULL);", slug).Scan(&link)
 	return link, err
 }
