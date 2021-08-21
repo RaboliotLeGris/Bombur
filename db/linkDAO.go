@@ -42,7 +42,6 @@ func (l LinkDAO) createLink(ctx context.Context, link, slug string) error {
 }
 
 func (l LinkDAO) createLinkWithExpiration(ctx context.Context, link, slug string, expire *time.Duration) error {
-	// TODO(Rabo): expire must be current time of request + duration
 	now := time.Now()
 	loc, err := time.LoadLocation("Europe/Paris")
 	if err != nil {
@@ -63,6 +62,6 @@ func (l LinkDAO) createLinkWithExpiration(ctx context.Context, link, slug string
 
 func (l LinkDAO) GetLink(ctx context.Context, slug string) (string, error) {
 	var link string
-	err := l.conn.QueryRow(ctx, "SELECT link FROM link WHERE slug=$1;", slug).Scan(&link)
+	err := l.conn.QueryRow(ctx, "SELECT link FROM link WHERE slug=$1 AND enabled=TRUE;", slug).Scan(&link)
 	return link, err
 }

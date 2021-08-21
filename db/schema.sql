@@ -10,7 +10,8 @@ CREATE TABLE link (
     id  INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     link TEXT NOT NULL,
     slug TEXT NOT NULL,
-    expire TIMESTAMPTZ
+    expire TIMESTAMPTZ,
+    enabled BOOLEAN DEFAULT TRUE
 );
 
 CREATE UNIQUE INDEX slug_idx ON link (slug);
