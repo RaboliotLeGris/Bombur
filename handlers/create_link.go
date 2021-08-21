@@ -9,12 +9,11 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	log "github.com/sirupsen/logrus"
 
-	"bombur/db"
+	"bombur/db/dao"
 )
 
 type CreateLink struct {
-	Pool   *pgxpool.Pool
-	UseTLS bool
+	Pool *pgxpool.Pool
 }
 
 type LinkCreatePayload struct {
@@ -53,7 +52,7 @@ func (l CreateLink) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		expireIn = &got
 	}
 
-	slug, err := db.NewLinkDAO(l.Pool).CreateLink(r.Context(), linkToCreate.Link, expireIn)
+	slug, err := dao.NewLinkDAO(l.Pool).CreateLink(r.Context(), linkToCreate.Link, expireIn)
 	if err != nil {
 		log.Debug("Failed to create link ", err)
 		w.WriteHeader(500)

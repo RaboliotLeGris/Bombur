@@ -1,0 +1,15 @@
+name: CI
+
+on: [push]
+
+jobs:
+  Bombur-Lint:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: make lint
+  Bombur-UnitTests:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: make ci-test

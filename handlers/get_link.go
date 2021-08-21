@@ -8,7 +8,7 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	log "github.com/sirupsen/logrus"
 
-	"bombur/db"
+	"bombur/db/dao"
 )
 
 type GetLink struct {
@@ -28,7 +28,7 @@ func (l GetLink) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Debug("Request GET /s/", slug)
 
-	link, err := db.NewLinkDAO(l.Pool).GetLink(r.Context(), slug)
+	link, err := dao.NewLinkDAO(l.Pool).GetLink(r.Context(), slug)
 	if err != nil {
 		log.Debug("Failed to get link ", err)
 		_ = json.NewEncoder(w).Encode(failureResponse{Reason: "Link doesn't exist or have expired"})
