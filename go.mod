@@ -1,4 +1,4 @@
-module bombur
+module github.com/raboliotlegris/bombur
 
 go 1.16
 

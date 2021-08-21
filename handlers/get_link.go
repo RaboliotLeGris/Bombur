@@ -8,7 +8,7 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	log "github.com/sirupsen/logrus"
 
-	"bombur/db/dao"
+	"github.com/raboliotlegris/bombur/db/dao"
 )
 
 type GetLink struct {

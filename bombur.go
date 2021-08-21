@@ -11,8 +11,8 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	log "github.com/sirupsen/logrus"
 
-	"bombur/db"
-	"bombur/handlers"
+	"github.com/raboliotlegris/bombur/db"
+	"github.com/raboliotlegris/bombur/handlers"
 )
 
 func main() {

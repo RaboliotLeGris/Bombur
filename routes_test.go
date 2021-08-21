@@ -17,8 +17,8 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 
-	"bombur/db"
-	"bombur/handlers"
+	"github.com/raboliotlegris/bombur/db"
+	"github.com/raboliotlegris/bombur/handlers"
 )
 
 func Test_Routes(t *testing.T) {

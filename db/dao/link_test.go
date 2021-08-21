@@ -10,8 +10,8 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/stretchr/testify/require"
 
-	"bombur/db"
-	"bombur/db/dao"
+	"github.com/raboliotlegris/bombur/db"
+	"github.com/raboliotlegris/bombur/db/dao"
 )
 
 func Test_Link_DAO(t *testing.T) {
