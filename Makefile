@@ -25,13 +25,13 @@ fmt:
 
 # Command wrapped into docker and used mostly for CI
 ci-test: dev_stop_all_containers
-	docker network create bombur-network
+	-docker network create bombur-network
 	docker run -d --rm --name bombur_pg --network=bombur-network -e POSTGRES_DB=bombur -e POSTGRES_USER=bombur -e POSTGRES_PASSWORD=bombur postgres:13.3-buster
 	sleep 5 # To let PG boot
 	docker run --rm --name bombur_app --network=bombur-network -v $(PWD):/go/src/app -w /go/src/app -e BOMBUR_DB_URI="postgresql://bombur_pg/bombur?user=bombur&password=bombur" golang:1.16.7-buster go test ./... -v
 
 ci-cover: dev_stop_all_containers
-	docker network create bombur-network
+	-docker network create bombur-network
 	docker run -d --rm --name bombur_pg --network=bombur-network -e POSTGRES_DB=bombur -e POSTGRES_USER=bombur -e POSTGRES_PASSWORD=bombur postgres:13.3-buster
 	sleep 5 sleep 5 # To let PG boot
 	docker run --rm --name bombur_app --network=bombur-network -v $(PWD):/go/src/app -w /go/src/app -e BOMBUR_DB_URI="postgresql://bombur_pg/bombur?user=bombur&password=bombur" golang:1.16.7-buster go test -cover ./...
@@ -58,4 +58,3 @@ dev_stop_all_containers:
 	-docker stop $$(docker ps -q)
 	-docker container rm $$(docker container ls -aq)
 	-docker volume rm -f $$(docker volume ls -q)
-	-docker network prune -f 
