@@ -23,6 +23,9 @@ func main() {
 	// "Config"
 	DB_URI := os.Getenv("BOMBUR_DB_URI")
 	if DB_URI == "" {
+		DB_URI = os.Getenv("DATABASE_URL") // Heroku default DB env var
+	}
+	if DB_URI == "" {
 		log.Fatal("Missing BOMBUR_DB_URI env var")
 	}
 
