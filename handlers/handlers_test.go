@@ -1,4 +1,4 @@
-package main_test
+package handlers_test
 
 import (
 	"bytes"
@@ -30,7 +30,6 @@ func Test_Routes(t *testing.T) {
 	g := Goblin(t)
 	g.Describe("Routes >", func() {
 		g.Before(func() {
-			// If logging is required
 			log.SetLevel(log.DebugLevel)
 			require.NoError(t, db.InitDB(DB_URI))
 		})
@@ -40,8 +39,7 @@ func Test_Routes(t *testing.T) {
 				givenLink := "https://raboland.fr"
 
 				w := httptest.NewRecorder()
-				r := mux.NewRouter()
-				r.PathPrefix("/link").Handler(handlers.CreateLink{Pool: pool}).Methods("POST")
+				r := handlers.Create_router(pool)
 
 				rawBuf, err := json.Marshal(handlers.LinkCreatePayload{Link: givenLink})
 				require.NoError(t, err)
@@ -63,8 +61,7 @@ func Test_Routes(t *testing.T) {
 				givenLink := "https://raboland.fr"
 
 				w := httptest.NewRecorder()
-				r := mux.NewRouter()
-				r.PathPrefix("/link").Handler(handlers.CreateLink{Pool: pool}).Methods("POST")
+				r := handlers.Create_router(pool)
 
 				rawBuf, err := json.Marshal(handlers.LinkCreatePayload{Link: givenLink, Expire: "10m"})
 				require.NoError(t, err)
@@ -84,8 +81,7 @@ func Test_Routes(t *testing.T) {
 
 			g.It("Failed if link is missing", func() {
 				w := httptest.NewRecorder()
-				r := mux.NewRouter()
-				r.PathPrefix("/link").Handler(handlers.CreateLink{Pool: pool}).Methods("POST")
+				r := handlers.Create_router(pool)
 
 				rawBuf, err := json.Marshal(handlers.LinkCreatePayload{})
 				require.NoError(t, err)
@@ -104,9 +100,7 @@ func Test_Routes(t *testing.T) {
 			g.It("GET link without expiration", func() {
 				// Creating routes
 				givenLink := "https://raboland.fr"
-				r := mux.NewRouter()
-				r.PathPrefix("/s/{slug}").Handler(handlers.GetLink{Pool: pool}).Methods("GET")
-				r.PathPrefix("/link").Handler(handlers.CreateLink{Pool: pool}).Methods("POST")
+				r := handlers.Create_router(pool)
 
 				// Creating link
 				rawBuf, err := json.Marshal(handlers.LinkCreatePayload{Link: givenLink})
@@ -135,9 +129,7 @@ func Test_Routes(t *testing.T) {
 			g.It("GET link with expiration", func() {
 				// Creating routes
 				givenLink := "https://raboland.fr"
-				r := mux.NewRouter()
-				r.PathPrefix("/s/{slug}").Handler(handlers.GetLink{Pool: pool}).Methods("GET")
-				r.PathPrefix("/link").Handler(handlers.CreateLink{Pool: pool}).Methods("POST")
+				r := handlers.Create_router(pool)
 
 				// Creating link
 				rawBuf, err := json.Marshal(handlers.LinkCreatePayload{Link: givenLink, Expire: "1m"})
@@ -166,9 +158,7 @@ func Test_Routes(t *testing.T) {
 			g.It("Failed to GET link due to expiration", func() {
 				// Creating routes
 				givenLink := "https://raboland.fr"
-				r := mux.NewRouter()
-				r.PathPrefix("/s/{slug}").Handler(handlers.GetLink{Pool: pool}).Methods("GET")
-				r.PathPrefix("/link").Handler(handlers.CreateLink{Pool: pool}).Methods("POST")
+				r := handlers.Create_router(pool)
 
 				// Creating link
 				rawBuf, err := json.Marshal(handlers.LinkCreatePayload{Link: givenLink, Expire: "1s"})
@@ -201,7 +191,7 @@ func Test_Routes(t *testing.T) {
 			g.It("GET /", func() {
 				w := httptest.NewRecorder()
 				r := mux.NewRouter()
-				r.PathPrefix("/").Handler(handlers.StaticHandler{StaticPath: "static", IndexPath: "index.html"})
+				r.PathPrefix("/").Handler(handlers.StaticHandler{StaticPath: "../static", IndexPath: "index.html"})
 
 				req := httptest.NewRequest("GET", "/", nil)
 				req.Header.Add("Origin", "http://SomeOrigin")

@@ -2,12 +2,9 @@ package main
 
 import (
 	"context"
-	"fmt"
-	"net/http"
 	"os"
 	"strconv"
 
-	"github.com/gorilla/mux"
 	"github.com/jackc/pgx/v4/pgxpool"
 	log "github.com/sirupsen/logrus"
 
@@ -51,30 +48,7 @@ func main() {
 	}
 
 	log.Info("Creating routes")
-	if err = launch(create_router(pool), port); err != nil {
+	if err = handlers.Launch(handlers.Create_router(pool), port); err != nil {
 		log.Fatal("Bombur crash with error: ", err)
 	}
-}
-
-func create_router(pool *pgxpool.Pool) *mux.Router {
-	log.Info("Creating routers")
-	// Routes order creation matter.
-	r := mux.NewRouter()
-
-	r.PathPrefix("/s/{slug}").Handler(handlers.GetLink{Pool: pool}).Methods("GET")
-	r.PathPrefix("/link").Handler(handlers.CreateLink{Pool: pool}).Methods("POST")
-	r.PathPrefix("/").Handler(handlers.StaticHandler{StaticPath: "static", IndexPath: "index.html"})
-
-	return r
-}
-
-func launch(router *mux.Router, port uint64) error {
-	log.Info("Launching HTTP server")
-
-	srv := &http.Server{
-		Handler: router,
-		Addr:    fmt.Sprintf("0.0.0.0:%v", port),
-	}
-
-	return srv.ListenAndServe()
 }
