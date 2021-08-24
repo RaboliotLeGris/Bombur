@@ -5,25 +5,34 @@
     <title>Bombur - Yet another URL shorter</title>
 </head>
 <body>
-    <h1>Bombur</h1>
-    <div id="form-part">
-        <form id="link-form" method="post">
-            <label>URL to shorten :
-              <input name="link">
-            </label>
-            <label>Expire in (minutes) - Leave blank to ignore:
-                <input name="expire">
-            </label>
-            <button>shorten</button>
-        </form>
-    </div>
-    <div id="result" class="hidden">
-        <h5> Your shorten link </h5>
-        <input id="output-link" readonly>
+    <div class="container">
+        <h1 id="main-title" class="title is-1">Bombur</h1>
+        <div class="columns">
+            <div id="form-part" class="column">
+                <form id="link-form" method="post">
+                    <label>URL to shorten :
+                        <input class="input" type="text" name="link">
+                    </label>
+                    <label>Expire in (minutes) - Leave blank to ignore:
+                        <input class="input" type="text" name="expire">
+                    </label>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-link">Shorten</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="result" class="hidden column">
+                <h5> Your shorten link </h5>
+                <input class="input" type="text" id="output-link" readonly>
+            </div>
+        </div>
     </div>
 </body>
 <footer>
-    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="bulma.min.css"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="script.js"></script>
 </footer>
 </html>
