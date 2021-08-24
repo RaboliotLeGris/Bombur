@@ -5,25 +5,47 @@
     <title>Bombur - Yet another URL shorter</title>
 </head>
 <body>
-    <h1>Bombur</h1>
-    <div id="form-part">
-        <form id="link-form" method="post">
-            <label>URL to shorten :
-              <input name="link">
-            </label>
-            <label>Expire in (minutes) - Leave blank to ignore:
-                <input name="expire">
-            </label>
-            <button>shorten</button>
-        </form>
-    </div>
-    <div id="result" class="hidden">
-        <h5> Your shorten link </h5>
-        <input id="output-link" readonly>
+    <div class="container">
+        <h1 id="main-title" class="title is-1">Bombur</h1>
+
+        <div class="columns">
+            <div id="form-part" class="column is-three-fifths is-offset-one-fifth">
+                <form id="link-form" method="post">
+                    <label class="label common-text-color">URL to shorten :
+                        <input class="input common-text-color" type="text" name="link">
+                    </label>
+                    <label class="label common-text-color">Expire in (minutes) - Leave blank to ignore:
+                        <input class="input common-text-color" type="text" name="expire">
+                    </label>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is-link common-text-color">Shorten</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="columns">
+            <div id="result" class="hidden column is-three-fifths is-offset-one-fifth">
+                <span class="common-text-color label"> Your shorten link </span>
+                <div class="columns">
+                    <div class="column is-11">
+                        <input class="input common-text-color copy-link" type="text" id="output-link" readonly>
+                    </div>
+                    <div class="column">
+                        <button class="button is-link copy-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ionicon common-text-color" viewBox="0 0 512 512"><title>Clipboard</title><path d="M336 64h32a48 48 0 0148 48v320a48 48 0 01-48 48H144a48 48 0 01-48-48V112a48 48 0 0148-48h32" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/><rect x="176" y="32" width="160" height="64" rx="26.13" ry="26.13" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <footer>
-    <script src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="bulma.min.css"/>
     <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="script.js"></script>
 </footer>
 </html>

@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/gorilla/mux"
 	"github.com/jackc/pgx/v4/pgxpool"
@@ -34,6 +35,11 @@ func (l GetLink) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		_ = json.NewEncoder(w).Encode(failureResponse{Reason: "Link doesn't exist or have expired"})
 		w.Header().Add("Content-type", "application/json")
 		return
+	}
+
+	// If the link doesn't start with http... then the lib function make a relative redirect
+	if !strings.HasPrefix(link, "http://") || !strings.HasPrefix(link, "http://") {
+		link = "https://" + link
 	}
 
 	// Permanent redirect seems to use browser cache

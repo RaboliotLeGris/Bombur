@@ -1,3 +1,30 @@
-.hidden{
+#main-title {
+    color: white;
+}
+
+.common-text-color {
+    color: #e2e2e2;
+}
+
+html {
+    background-color: #434251;
+}
+
+body {
+    text-align: center;
+}
+
+.hidden {
     display: none;
+}
+
+svg {
+    height: 100%;
+    color: #434251;
+}
+
+input{
+    text-align: center; 
+    background-color: rgb(40, 35, 61) !important;
+    border-color: black !important;
 }
