@@ -46,9 +46,11 @@ dev_start_container:
 	docker run --rm --network=bombur-network -p 7777:7777 -e BOMBUR_DB_URI="postgresql://bombur_pg/bombur?user=bombur&password=bombur" bombur_app
 
 dev_start_pg13:
+	-docker network create bombur-network
 	docker run --rm --name bombur_pg -p 5432:5432 -e POSTGRES_DB=bombur -e POSTGRES_USER=bombur -e POSTGRES_PASSWORD=bombur postgres:13.3-buster
 
 dev_start_pg13_daemon:
+	-docker network create bombur-network
 	docker run -d --rm --network=bombur-network --name bombur_pg -p 5432:5432 -e POSTGRES_DB=bombur -e POSTGRES_USER=bombur -e POSTGRES_PASSWORD=bombur postgres:13.3-buster
 
 dev_connect_pg13:

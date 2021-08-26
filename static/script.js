@@ -1,6 +1,6 @@
 // It's a terrible piece of Javascript. But for now, it will do.
-document.addEventListener("DOMContentLoaded", function() {
-    let form = document.getElementById("link-form")
+document.addEventListener('DOMContentLoaded', function() {
+    let form = document.getElementById('link-form')
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const expireIn = +e.target[1].value
 
         const request = new XMLHttpRequest();
-        request.open("POST", "/link");
-        request.setRequestHeader("Content-Type", "application/json");
+        request.open('POST', '/link');
+        request.setRequestHeader('Content-Type', 'application/json');
         request.onreadystatechange = function () {
             if (request.readyState === 4 && request.status === 200) {
                 displayLink(JSON.parse(request.responseText).link)
@@ -22,13 +22,22 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         request.send(JSON.stringify(data))
     });
+    document.querySelectorAll('.copy-link').forEach(function(elem) {
+        elem.addEventListener('click', copyToClipboard)
+    });
 });
 
 function displayLink(link) {
     console.log(link)
 
-    const result = document.getElementById("result");
-    result.classList.remove("hidden")
+    const result = document.getElementById('result');
+    result.classList.remove('hidden')
 
-    document.getElementById("output-link").value = link
+    document.getElementById('output-link').value = link
+}
+
+function copyToClipboard() {
+    console.log('COPY!')
+    
+    navigator.clipboard.writeText(text)
 }
