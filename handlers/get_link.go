@@ -38,7 +38,7 @@ func (l GetLink) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// If the link doesn't start with http... then the lib function make a relative redirect
-	if !strings.HasPrefix(link, "http://") || !strings.HasPrefix(link, "https://") {
+	if !strings.HasPrefix(link, "http://") && !strings.HasPrefix(link, "https://") {
 		link = "https://" + link
 	}
 
