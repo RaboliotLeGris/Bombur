@@ -8,5 +8,5 @@ require (
 	github.com/jackc/pgx/v4 v4.17.1
 	github.com/sirupsen/logrus v1.9.0
 	github.com/stretchr/testify v1.8.0
-	github.com/thanhpk/randstr v1.0.4
+	github.com/thanhpk/randstr v1.0.5
 )
